@@ -8,7 +8,7 @@ const support_paths = [
   'containers',
   'commons',
   'constants',
-  'context',
+  'contexts',
   'decorators',
   'graphql',
   'hooks',
@@ -18,7 +18,6 @@ const support_paths = [
   'styles',
   'themes',
 ]
-
 
 // https://vitejs.dev/config/
 export default defineConfig({

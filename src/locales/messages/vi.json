@@ -1,0 +1,42 @@
+{
+  "auth": {
+    "labels": {
+      "sign_in": "Đăng nhập",
+      "email_or_username": "Email / Tên tài khoản",
+      "password": "Mật khẩu"
+    },
+    "placeholder": {
+      "email_or_username": "Vui lòng nhập địa chỉ email hoặc tên tài khoản của bạn",
+      "password": "Tối thiểu 8 kí tự bao gồm cả chữ và số"
+    },
+    "actions": {
+      "sign_in": "Đăng nhập"
+    },
+    "errors": {
+      "email": {
+        "required": "Nhập email hoặc tên tài khoản của bạn"
+      },
+      "password": {
+        "required": "Nhập mật khẩu của bạn"
+      }
+    },
+    "messages": {
+      "sign_in_failed": "Đăng nhập thất bại. Vui lòng thử lại"
+    }
+  },
+  "account_form": {
+    "labels": {
+      "name": "Tên",
+      "username": "Tài khoản",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "confirm_password": "Nhập lại mật khẩu",
+      "phone": "Số điện thoại",
+      "birthday": "Ngày sinh",
+      "gender": "Giới tính"
+    },
+    "actions": {
+      "submit": "Lưu"
+    }
+  }
+}
