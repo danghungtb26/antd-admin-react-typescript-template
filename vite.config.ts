@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-
+import { i18nDetector } from 'vite-plugin-i18n-detector'
 import path from 'path'
 
 const support_paths = [
@@ -8,7 +8,7 @@ const support_paths = [
   'containers',
   'commons',
   'constants',
-  'contexts',
+  'context',
   'decorators',
   'graphql',
   'hooks',
@@ -17,12 +17,19 @@ const support_paths = [
   'models',
   'styles',
   'themes',
+  'routers',
+  'app',
+  'contexts',
 ]
-
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
 
+    i18nDetector({
+      localesPaths: ['./src/locales/messages'],
+    }),
+  ],
   server: {
     port: 3000,
   },

@@ -1,6 +1,6 @@
 import { App, ConfigProvider } from 'antd'
-import React, { useEffect, useState } from 'react'
-import { StyleProvider, createCache, extractStyle, px2remTransformer } from '@ant-design/cssinjs'
+import React from 'react'
+import { StyleProvider, px2remTransformer } from '@ant-design/cssinjs'
 import { useTheme } from 'styled-components'
 
 type AntDesignProviderProps = {
@@ -12,16 +12,16 @@ const px2rem = px2remTransformer({
 })
 
 const AntDesignProvider: React.FC<AntDesignProviderProps> = ({ children }) => {
-  const [cache] = useState(() => createCache())
+  // const [cache] = useState(() => createCache())
 
-  useEffect(() => {
-    document.head.insertAdjacentHTML('beforeend', `</script>${extractStyle(cache)}<script>`)
-  }, [cache])
+  // useEffect(() => {
+  //   document.head.insertAdjacentHTML('beforeend', `</script>${extractStyle(cache)}<script>`)
+  // }, [cache])
 
   const theme = useTheme()
 
   return (
-    <StyleProvider cache={cache} transformers={[px2rem]}>
+    <StyleProvider transformers={[px2rem]}>
       <App>
         <ConfigProvider
           theme={{

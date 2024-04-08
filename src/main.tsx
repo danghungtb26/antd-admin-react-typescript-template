@@ -10,6 +10,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { setupI18n } from 'vite-plugin-i18n-detector/client'
 import vi from './locales/messages/vi.json'
 import { routers } from '@routers'
+import SettingProvider from '@contexts/setting/provider'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 
@@ -58,7 +59,9 @@ const { loadResourceByLang } = setupI18n({
         <StyledThemeProvider>
           <AntDesignProvider>
             <StyledProvider>
-              <RouterProvider router={router} />
+              <SettingProvider>
+                <RouterProvider router={router} />
+              </SettingProvider>
             </StyledProvider>
           </AntDesignProvider>
         </StyledThemeProvider>
