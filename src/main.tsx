@@ -11,6 +11,7 @@ import { setupI18n } from 'vite-plugin-i18n-detector/client'
 import vi from './locales/messages/vi.json'
 import { routers } from '@routers'
 import SettingProvider from '@contexts/setting/provider'
+import { AnimatePresence } from 'framer-motion'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 
@@ -57,13 +58,15 @@ const { loadResourceByLang } = setupI18n({
     root.render(
       <React.StrictMode>
         <StyledThemeProvider>
-          <AntDesignProvider>
-            <StyledProvider>
+          <StyledProvider>
+            <AntDesignProvider>
               <SettingProvider>
-                <RouterProvider router={router} />
+                <AnimatePresence mode="wait">
+                  <RouterProvider router={router} />
+                </AnimatePresence>
               </SettingProvider>
-            </StyledProvider>
-          </AntDesignProvider>
+            </AntDesignProvider>
+          </StyledProvider>
         </StyledThemeProvider>
       </React.StrictMode>,
     )

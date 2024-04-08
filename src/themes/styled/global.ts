@@ -2,9 +2,13 @@ import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
     body {
-        max-width: 100vw;
-        overflow-x: hidden;
+        /* max-width: 100vw; */
+        height: 100%;
         margin: 0;
+    }
+
+    #root {
+        height: 100%;
     }
 
     html {

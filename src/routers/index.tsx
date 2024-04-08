@@ -1,3 +1,4 @@
+import DashboardPage from '@app/dashboard'
 import HomePage from '@app/home'
 import LoginPage from '@app/login'
 import DashboardLayout from '@layouts/dashboard'
@@ -9,6 +10,13 @@ export const routers: DataRouteObject[] = [
     id: 'signed',
     path: '',
     element: <DashboardLayout />,
-    children: [{ id: 'home', path: 'home', Component: HomePage }],
+    children: [
+      { id: 'home', path: 'home', Component: HomePage },
+      {
+        id: 'dashboard',
+        path: 'dashboard',
+        Component: DashboardPage,
+      },
+    ],
   },
 ]
