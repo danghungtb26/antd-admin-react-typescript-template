@@ -41,6 +41,7 @@
     "**/*.ts",
     "**/*.tsx",
     "@types/**/*.d.ts",
+    "global.d.ts"
   ],
   "exclude": [
     "node_module"

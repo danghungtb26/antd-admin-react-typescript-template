@@ -44,7 +44,6 @@ export class TagViewModel extends Base {
         path: '/dashboard',
         deletable: false,
       })
-      console.log('🚀 ~ TagViewModel ~ getdashboard ~ tagView:', tagView)
       this._dashboard = tagView
     }
     return this._dashboard

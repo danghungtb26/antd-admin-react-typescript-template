@@ -12,7 +12,7 @@ import {
   SIDER_BAR_WIDTH,
 } from './constants'
 import { useSetting } from '@contexts/setting/context'
-import TagView from './tag-view'
+import TagView, { TAG_VIEW_HEIGHT } from './tag-view'
 import { media_break_points } from '@themes/styled/globalStyle'
 
 const LayoutStyled = styled(Layout)`
@@ -55,7 +55,7 @@ const MainApp = styled.div`
 
   position: relative;
   overflow: hidden;
-  padding-top: ${HEADER_HEIGHT / 10}rem;
+  padding-top: ${HEADER_HEIGHT / 10 + TAG_VIEW_HEIGHT / 10}rem;
 `
 
 type DashboardLayoutProps = {}
