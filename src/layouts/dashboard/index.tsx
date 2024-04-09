@@ -6,7 +6,12 @@ import LayoutContent from './content'
 import LayoutHeader from './header'
 import { Outlet } from 'react-router-dom'
 import cx from 'classnames'
-import { ANIMATION_SPEED, SIDER_BAR_COLLAPSED_WIDTH, SIDER_BAR_WIDTH } from './constants'
+import {
+  ANIMATION_SPEED,
+  HEADER_HEIGHT,
+  SIDER_BAR_COLLAPSED_WIDTH,
+  SIDER_BAR_WIDTH,
+} from './constants'
 import { useSetting } from '@contexts/setting/context'
 
 const LayoutStyled = styled(Layout)`
@@ -41,6 +46,7 @@ const MainApp = styled.div`
 
   position: relative;
   overflow: hidden;
+  padding-top: ${HEADER_HEIGHT / 10}rem;
 `
 
 type DashboardLayoutProps = {}

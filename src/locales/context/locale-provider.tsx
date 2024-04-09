@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { LocaleContext } from './context'
 import nProgress from 'nprogress'
 import { useLocation } from 'react-router'
@@ -20,6 +20,7 @@ const LocaleProvider: React.FC<LocaleProviderProps> = ({ locale: l, messages: m,
       },
     },
   })
+
   const onChangeLocale = useCallback(() => {}, [])
 
   const value = useMemo(() => {
@@ -30,11 +31,10 @@ const LocaleProvider: React.FC<LocaleProviderProps> = ({ locale: l, messages: m,
 
   const location = useLocation()
   const pathname = location.pathname
-  const searchParams = new URLSearchParams(location.search)
 
   useEffect(() => {
     nProgress.done()
-  }, [pathname, searchParams])
+  }, [pathname, location.search])
 
   return (
     <LocaleContext.Provider value={value}>
