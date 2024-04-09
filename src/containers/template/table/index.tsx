@@ -15,7 +15,7 @@ const TableTemplateContainer: React.FC<
     <PageContainer>
       <TableSearch />
       <br />
-      <Table dataSource={[{ id: 1 }]}>
+      <Table rowKey={i => i.id} dataSource={[{ id: 1 }]}>
         <Column title="序号" dataIndex="id" key="id" width={200} align="center" />
         <Column title="标题" dataIndex="title" key="title" width={200} align="center" />
         <Column title="作者" dataIndex="author" key="author" width={100} align="center" />

@@ -6,9 +6,7 @@ import { uniqBy } from 'lodash'
 type TagViewProviderProps = {}
 
 const TagViewProvider: React.FC<React.PropsWithChildren<TagViewProviderProps>> = ({ children }) => {
-  const [tagViews, setTagViews] = useState<TagViewContextType['tagViews']>([
-    TagViewModel.fromJson({ title: 'Dashboard', path: '/dashboard' }),
-  ])
+  const [tagViews, setTagViews] = useState<TagViewContextType['tagViews']>([TagViewModel.dashboard])
 
   const addTagView: TagViewContextType['addTagView'] = v => {
     setTagViews(s => uniqBy(s.concat(v), 'path'))

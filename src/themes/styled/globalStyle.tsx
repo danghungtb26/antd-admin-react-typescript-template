@@ -1,5 +1,5 @@
 export const break_points_value = {
-  xs: 320,
+  xs: 400,
   sm: 640,
   md: 768,
   lg: 1024,

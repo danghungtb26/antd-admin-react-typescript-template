@@ -10,14 +10,22 @@ const SettingProvider: React.FC<React.PropsWithChildren<SettingProviderProps>> =
     setCollapsed(s => !s)
   }
 
+  const [drawerOpend, setDrawerOpend] = useState<SettingContextType['drawerOpend']>(false)
+
+  const toggleDrawerOpened = () => {
+    setDrawerOpend(s => !s)
+  }
+
   const value = useMemo<SettingContextType>(
     () => ({
       sidebarCollapsed,
       toggleSidebarCollapsed,
       fixedHeader: true,
       showTagView: true,
+      drawerOpend,
+      toggleDrawerOpened,
     }),
-    [sidebarCollapsed],
+    [sidebarCollapsed, drawerOpend],
   )
 
   return <SettingContext.Provider value={value}>{children}</SettingContext.Provider>

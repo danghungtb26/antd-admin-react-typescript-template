@@ -13,6 +13,7 @@ import {
 } from './constants'
 import { useSetting } from '@contexts/setting/context'
 import TagView from './tag-view'
+import { media_break_points } from '@themes/styled/globalStyle'
 
 const LayoutStyled = styled(Layout)`
   position: relative;
@@ -29,6 +30,10 @@ const Wrap = styled.div`
   &.collapsed {
     margin-left: ${SIDER_BAR_COLLAPSED_WIDTH / 10}rem;
   }
+
+  ${media_break_points.xs} {
+    margin-left: 0 !important;
+  }
 `
 
 const FixedHeader = styled.div<{ $collapsed?: boolean }>`
@@ -38,6 +43,10 @@ const FixedHeader = styled.div<{ $collapsed?: boolean }>`
   z-index: 9;
   width: calc(100% - ${p => (p.$collapsed ? SIDER_BAR_COLLAPSED_WIDTH : SIDER_BAR_WIDTH) / 10}rem);
   transition: width ${ANIMATION_SPEED}s;
+
+  ${media_break_points.xs} {
+    width: 100%;
+  }
 `
 
 const MainApp = styled.div`

@@ -8,6 +8,10 @@ export type SettingContextType = {
   fixedHeader: boolean
 
   showTagView: boolean
+
+  drawerOpend: boolean
+
+  toggleDrawerOpened: () => void
 }
 
 export const SettingContext = React.createContext<SettingContextType>({
@@ -15,6 +19,8 @@ export const SettingContext = React.createContext<SettingContextType>({
   toggleSidebarCollapsed: () => {},
   fixedHeader: true,
   showTagView: true,
+  drawerOpend: false,
+  toggleDrawerOpened: () => {},
 })
 
 export const useSetting = () => useContext(SettingContext)

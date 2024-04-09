@@ -72,6 +72,7 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
 
   useEffect(() => {
     addTagView(TagViewModel.fromJson({ title: location.pathname, path: location.pathname }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
   const onClickRemove: (tag: TagViewModel) => React.MouseEventHandler<HTMLSpanElement> =
