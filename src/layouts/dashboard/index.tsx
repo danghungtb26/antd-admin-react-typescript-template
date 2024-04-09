@@ -2,7 +2,6 @@ import { Layout } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
 import LayoutSider from './sider'
-import LayoutContent from './content'
 import LayoutHeader from './header'
 import { Outlet } from 'react-router-dom'
 import cx from 'classnames'
@@ -13,6 +12,7 @@ import {
   SIDER_BAR_WIDTH,
 } from './constants'
 import { useSetting } from '@contexts/setting/context'
+import TagView from './tag-view'
 
 const LayoutStyled = styled(Layout)`
   position: relative;
@@ -52,7 +52,7 @@ const MainApp = styled.div`
 type DashboardLayoutProps = {}
 
 const DashboardLayout: React.FC<React.PropsWithChildren<DashboardLayoutProps>> = () => {
-  const { sidebarCollapsed } = useSetting()
+  const { sidebarCollapsed, showTagView } = useSetting()
 
   return (
     <LayoutStyled>
@@ -60,6 +60,7 @@ const DashboardLayout: React.FC<React.PropsWithChildren<DashboardLayoutProps>> =
       <Wrap className={cx({ collapsed: sidebarCollapsed })}>
         <FixedHeader $collapsed={sidebarCollapsed}>
           <LayoutHeader />
+          {showTagView ? <TagView /> : null}
         </FixedHeader>
 
         <MainApp>

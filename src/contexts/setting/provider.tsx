@@ -14,6 +14,8 @@ const SettingProvider: React.FC<React.PropsWithChildren<SettingProviderProps>> =
     () => ({
       sidebarCollapsed,
       toggleSidebarCollapsed,
+      fixedHeader: true,
+      showTagView: true,
     }),
     [sidebarCollapsed],
   )
