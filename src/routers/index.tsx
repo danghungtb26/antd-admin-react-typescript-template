@@ -2,12 +2,13 @@ import App from '@app'
 import DashboardPage from '@app/dashboard'
 import HomePage from '@app/home'
 import LoginPage from '@app/login'
+import ProfilePage from '@app/profile'
 import TableTemplatePage from '@app/template/table'
 import { generateRandomId } from '@commons/id'
 import DashboardLayout from '@layouts/dashboard'
-import { RouteObject, matchPath } from 'react-router-dom'
+import { type RouteObject, matchPath } from 'react-router-dom'
 
-export type DataRouteObject = RouteObject & {
+export type DataRouteObject = Omit<RouteObject, 'children'> & {
   id: string
   children?: DataRouteObject[]
   meta?: {
@@ -63,7 +64,6 @@ export const routers: DataRouteObject[] = [
               {
                 id: 'table',
                 path: 'table',
-
                 meta: {
                   title: 'Table template',
                   titleKey: 'table.template.title',
@@ -73,15 +73,31 @@ export const routers: DataRouteObject[] = [
                     id: 'root-table',
                     path: '',
                     Component: TableTemplatePage,
+                    meta: {
+                      title: 'Table template',
+                      titleKey: 'table.template.title',
+                    },
                   },
                   {
                     id: 'detail',
                     path: ':id',
                     Component: LoginPage,
+                    meta: {
+                      title: 'Detail template',
+                      titleKey: 'table.template.title',
+                    },
                   },
                 ],
               },
             ],
+          },
+          {
+            id: generateRandomId(),
+            path: 'profile',
+            Component: ProfilePage,
+            meta: {
+              title: 'Profile',
+            },
           },
         ],
       },

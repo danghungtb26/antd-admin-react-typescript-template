@@ -6,7 +6,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { initReactI18next } from 'react-i18next'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { setupI18n } from 'vite-plugin-i18n-detector/client'
 import vi from './locales/messages/vi.json'
 import { routers } from '@routers'
@@ -16,7 +16,7 @@ import TagViewProvider from '@contexts/tag-view/provider'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 
-const router = createBrowserRouter(routers)
+const router = createBrowserRouter(routers as RouteObject[])
 
 // const { locale, messages } = await getInitialLocale()
 const lookupTarget = 'lang'

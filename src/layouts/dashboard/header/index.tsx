@@ -1,9 +1,11 @@
 import Hamburger from '@components/hamburger'
-import { Layout } from 'antd'
+import { Avatar, Dropdown, Layout, MenuProps } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
 import { HEADER_HEIGHT } from '../constants'
 import BreadCrumb from '@components/breadcrumb'
+import { Link } from 'react-router-dom'
+import { router_keys } from '@routers/key'
 
 const HeaderStyled = styled(Layout.Header)`
   height: ${HEADER_HEIGHT / 10}rem;
@@ -14,6 +16,21 @@ const HeaderStyled = styled(Layout.Header)`
   position: relative;
 `
 
+const RightMenu = styled.div`
+  float: right;
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  height: 100%;
+`
+
+const items: MenuProps['items'] = [
+  {
+    key: '1',
+    label: <Link to={router_keys.profile}>Profile</Link>,
+  },
+]
+
 type LayoutHeaderProps = {}
 
 const LayoutHeader: React.FC<React.PropsWithChildren<LayoutHeaderProps>> = () => {
@@ -21,7 +38,16 @@ const LayoutHeader: React.FC<React.PropsWithChildren<LayoutHeaderProps>> = () =>
     <HeaderStyled>
       <Hamburger />
       <BreadCrumb />
-      <div style={{ float: 'right' }}>a</div>
+      <RightMenu>
+        <Dropdown menu={{ items }} placement="bottomRight" arrow={{ pointAtCenter: true }}>
+          <Avatar
+            style={{ cursor: 'pointer' }}
+            shape="square"
+            size={40}
+            src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
+          />
+        </Dropdown>
+      </RightMenu>
     </HeaderStyled>
   )
 }

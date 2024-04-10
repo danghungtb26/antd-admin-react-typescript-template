@@ -9,3 +9,5 @@ declare module 'react-router' {
     }
   }
 }
+
+export {}
