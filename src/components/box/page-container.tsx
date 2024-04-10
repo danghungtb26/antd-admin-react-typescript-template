@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const PageContainer = styled.div`
-  padding: 3.2rem;
-  background-color: rgb(240, 242, 245);
+  padding: 2rem;
+  background-color: #f0f2f5;
   position: relative;
 `
