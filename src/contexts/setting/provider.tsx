@@ -1,10 +1,12 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { SettingContext, SettingContextType } from './context'
+import { getSidebarCollapsed, setSidebarCollapsed } from '@commons/cookies'
 
 type SettingProviderProps = {}
 
 const SettingProvider: React.FC<React.PropsWithChildren<SettingProviderProps>> = ({ children }) => {
-  const [sidebarCollapsed, setCollapsed] = useState<SettingContextType['sidebarCollapsed']>(false)
+  const [sidebarCollapsed, setCollapsed] =
+    useState<SettingContextType['sidebarCollapsed']>(getSidebarCollapsed())
 
   const toggleSidebarCollapsed = () => {
     setCollapsed(s => !s)
@@ -15,6 +17,10 @@ const SettingProvider: React.FC<React.PropsWithChildren<SettingProviderProps>> =
   const toggleDrawerOpened = () => {
     setDrawerOpend(s => !s)
   }
+
+  useEffect(() => {
+    setSidebarCollapsed(sidebarCollapsed)
+  }, [sidebarCollapsed])
 
   const value = useMemo<SettingContextType>(
     () => ({
