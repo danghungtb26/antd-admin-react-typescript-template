@@ -2,10 +2,11 @@ import { useTagView } from '@contexts/tag-view/context'
 import { TagViewModel } from '@models/tag-view'
 import React, { useEffect } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import cx from 'classnames'
 import { CloseCircleOutlined } from '@ant-design/icons'
+import { findRouter } from '@routers'
 
 export const TAG_VIEW_HEIGHT = 34
 
@@ -69,11 +70,20 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
 
   const location = useLocation()
   const navigate = useNavigate()
+  const params = useParams()
 
   useEffect(() => {
-    addTagView(TagViewModel.fromJson({ title: location.pathname, path: location.pathname }))
+    const router = findRouter(location.pathname)
+    addTagView(
+      TagViewModel.fromJson({
+        title: router?.meta?.title ?? location.pathname,
+        title_key: router?.meta?.titleKey,
+        path: location.pathname,
+        params: { ...location.state, ...params },
+      }),
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname])
+  }, [location.pathname, params])
 
   const onClickRemove: (tag: TagViewModel) => React.MouseEventHandler<HTMLSpanElement> =
     tag => e => {

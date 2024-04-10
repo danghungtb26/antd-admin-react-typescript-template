@@ -6,9 +6,10 @@ import {
   HomeOutlined,
   TableOutlined,
 } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useSetting } from '@contexts/setting/context'
 import styled from 'styled-components'
+import { router_keys } from '@routers/key'
 
 const MenuStyled = styled.div`
   .ant-menu {
@@ -31,7 +32,7 @@ const Menu: React.FC<React.PropsWithChildren<MenuProps>> = () => {
   const { toggleDrawerOpened } = useSetting()
 
   const onClick: MenuAntdProps['onClick'] = e => {
-    navigate(`/${e.key}`)
+    navigate(`${e.key}`)
     toggleDrawerOpened()
   }
 
@@ -42,16 +43,20 @@ const Menu: React.FC<React.PropsWithChildren<MenuProps>> = () => {
         mode="inline"
         onClick={onClick}
         items={[
-          { key: 'dashboard', label: 'Dashboard', icon: <DashboardOutlined /> },
-          { key: 'home', icon: <HomeOutlined />, label: 'Home' },
           {
-            key: 'template',
+            key: '/dashboard',
+            label: <Link to={router_keys.dashboard}>Dashboard</Link>,
+            icon: <DashboardOutlined />,
+          },
+          { key: '/home', icon: <HomeOutlined />, label: <Link to={router_keys.home}>Home</Link> },
+          {
+            key: '/template',
             label: 'Template',
             icon: <ExclamationOutlined />,
             children: [
               {
-                key: 'template/table',
-                label: 'Table',
+                key: '/template/table',
+                label: <Link to={router_keys.template.table.list}>Table</Link>,
                 icon: <TableOutlined />,
               },
             ],

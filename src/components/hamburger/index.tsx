@@ -5,10 +5,17 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Wrap = styled.div`
-  display: inline-block;
-  font-size: 2rem;
-  line-height: 4rem;
+  line-height: 4.6rem;
+  height: 100%;
+  float: left;
   cursor: pointer;
+  transition: background 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-self: center;
+  &:hover {
+    background: rgba(0, 0, 0, 0.025);
+  }
 `
 
 type HamburgerProps = {}

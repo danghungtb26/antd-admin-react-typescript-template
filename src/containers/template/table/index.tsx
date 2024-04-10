@@ -3,6 +3,7 @@ import { Button, Divider, Table, Tag } from 'antd'
 import React from 'react'
 import TableSearch from './components/search'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 
 const { Column } = Table
 
@@ -44,7 +45,14 @@ const TableTemplateContainer: React.FC<
           align="center"
           render={() => (
             <span>
-              <Button type="primary" shape="circle" icon={<EditOutlined />} title="编辑" />
+              <Link
+                to="/template/table/1"
+                state={{
+                  aaa: 's',
+                }}
+              >
+                <Button type="primary" shape="circle" icon={<EditOutlined />} title="编辑" />
+              </Link>
               <Divider type="vertical" />
               <Button type="primary" shape="circle" icon={<DeleteOutlined />} danger title="删除" />
             </span>
