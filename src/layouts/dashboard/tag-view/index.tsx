@@ -1,12 +1,13 @@
 import { useTagView } from '@contexts/tag-view/context'
 import { TagViewModel } from '@models/tag-view'
-import React, { useEffect } from 'react'
+import React, { startTransition, useEffect, useRef, useState } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import cx from 'classnames'
 import { CloseCircleOutlined } from '@ant-design/icons'
 import { findRouter } from '@routers'
+import { router_keys } from '@routers/key'
 
 export const TAG_VIEW_HEIGHT = 34
 
@@ -15,6 +16,7 @@ const Container = styled.div`
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
+  position: relative;
   box-shadow:
     0 1px 3px 0 rgba(0, 0, 0, 0.12),
     0 0 3px 0 rgba(0, 0, 0, 0.04);
@@ -63,14 +65,69 @@ const TagViewItem = styled(Link)`
   }
 `
 
+const ContextMenu = styled.ul<{ $x: number; $y: number }>`
+  margin: 0;
+  background: #fff;
+  z-index: 3000;
+  position: absolute;
+  list-style-type: none;
+  padding: 0.5rem 0;
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #333;
+  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+  top: ${p => p.$y / 10}rem;
+  left: ${p => p.$x / 10}rem;
+
+  li {
+    margin: 0;
+    padding: 0.7rem 1.6rem;
+    cursor: pointer;
+    &:hover {
+      background: #eee;
+    }
+  }
+`
+
 type TagViewProps = {}
 
 const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
-  const { tagViews, addTagView, removeTagView } = useTagView()
+  const { tagViews, addTagView, removeTagView, removeAll, removeOthers } = useTagView()
 
   const location = useLocation()
   const navigate = useNavigate()
   const params = useParams()
+
+  const [attribute, setAttribute] = useState<{
+    x: number
+    y: number
+    // width: number
+    // height: number
+  }>({ x: 0, y: 0 })
+  const [currentTag, setCurrentTag] = useState<TagViewModel>()
+
+  const menu = useRef<HTMLUListElement>(null)
+  const container = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    const handleClickOutside: React.EventHandler<any> = event => {
+      if (menu.current && !menu.current.contains(event.target)) {
+        startTransition(() => {
+          setCurrentTag(undefined)
+        })
+      }
+    }
+    // Bind the event listener
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [menu])
 
   useEffect(() => {
     const router = findRouter(location.pathname)
@@ -98,10 +155,47 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
         navigate(before.path ?? '')
       }
       removeTagView(tag.id)
+      startTransition(() => {
+        setCurrentTag(undefined)
+      })
     }
 
+  const onContextMenu: (tag: TagViewModel) => React.MouseEventHandler<HTMLAnchorElement> =
+    tag => e => {
+      e.preventDefault()
+      const containerRect = container.current?.getBoundingClientRect() ?? { x: 0, y: 0 }
+      const offsetLeft = e.currentTarget.getBoundingClientRect().x // container margin left
+
+      const elementLeft = offsetLeft - containerRect.x + e.nativeEvent.offsetX // 15: margin right
+
+      const elementTop = e.nativeEvent.offsetY
+      startTransition(() => {
+        setAttribute({ x: elementLeft, y: elementTop + 10 })
+        setCurrentTag(tag)
+      })
+    }
+
+  const onClickRemoveOthers = () => {
+    if (location.pathname !== currentTag?.path) {
+      navigate(currentTag?.path ?? router_keys.dashboard)
+    }
+    removeOthers(currentTag?.id)
+    startTransition(() => {
+      setCurrentTag(undefined)
+    })
+  }
+
+  const onClickRemoveAll = () => {
+    const canDelete = tagViews.find(i => !i.deletable)
+    navigate(canDelete?.path ?? router_keys.dashboard)
+    removeAll()
+    startTransition(() => {
+      setCurrentTag(undefined)
+    })
+  }
+
   return (
-    <Container>
+    <Container ref={container}>
       <Scrollbars
         autoHide
         autoHideTimeout={500}
@@ -110,6 +204,7 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
       >
         {tagViews.map(tag => (
           <TagViewItem
+            onContextMenu={onContextMenu(tag)}
             to={tag.path ?? ''}
             key={tag.id}
             className={cx({ active: tag.path === location.pathname })}
@@ -132,6 +227,14 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
           ))}
         </div>
       </div> */}
+      {currentTag ? (
+        <ContextMenu $x={attribute.x} $y={attribute.y} ref={menu}>
+          {/* <li onClick={onRefresh}>Refresh</li> */}
+          {currentTag.deletable ? <li onClick={onClickRemove(currentTag)}>Close</li> : null}
+          <li onClick={onClickRemoveOthers}>Close Others</li>
+          <li onClick={onClickRemoveAll}>Close All</li>
+        </ContextMenu>
+      ) : null}
     </Container>
   )
 }

@@ -7,12 +7,18 @@ export type TagViewContextType = {
   addTagView: (tagView: TagViewModel) => void
 
   removeTagView: (id: TagViewModel['id']) => void
+
+  removeOthers: (id: TagViewModel['id']) => void
+
+  removeAll: () => void
 }
 
 export const TagViewContext = createContext<TagViewContextType>({
   tagViews: [TagViewModel.dashboard],
   addTagView: () => {},
   removeTagView: () => {},
+  removeAll: () => {},
+  removeOthers: () => {},
 })
 
 export const useTagView = () => {

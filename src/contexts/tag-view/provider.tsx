@@ -16,10 +16,20 @@ const TagViewProvider: React.FC<React.PropsWithChildren<TagViewProviderProps>> =
     setTagViews(s => s.filter(i => i.id !== id))
   }
 
+  const removeOthers: TagViewContextType['removeOthers'] = id => {
+    setTagViews(s => s.filter(i => !i.deletable || i.id === id))
+  }
+
+  const removeAll: TagViewContextType['removeAll'] = () => {
+    setTagViews(s => s.filter(i => !i.deletable))
+  }
+
   const value: TagViewContextType = {
     tagViews,
     addTagView,
     removeTagView,
+    removeAll,
+    removeOthers,
   }
 
   return <TagViewContext.Provider value={value}>{children}</TagViewContext.Provider>
