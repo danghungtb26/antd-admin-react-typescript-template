@@ -37,19 +37,27 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id: string) {
+          const pathSource = id.replace(__dirname, '')
           // creating a chunk to react routes deps. Reducing the vendor chunk size
           if (
-            id.includes('react-router-dom') ||
-            id.includes('@remix-run') ||
-            id.includes('react-router')
+            pathSource.includes('react') ||
+            pathSource.includes('react-router-dom') ||
+            pathSource.includes('@remix-run') ||
+            pathSource.includes('react-router')
           ) {
             return '@react-router'
           }
-          if (id.includes('antd')) {
+          if (pathSource.includes('react')) {
+            return 'react'
+          }
+          if (pathSource.includes('antd')) {
             return 'antd'
           }
-          if (id.includes('echarts')) {
+          if (pathSource.includes('echarts')) {
             return 'echarts'
+          }
+          if (id.includes('lodash')) {
+            return 'lodash'
           }
         },
       },
