@@ -1,9 +1,4 @@
 import App from '@app'
-import DashboardPage from '@app/dashboard'
-import HomePage from '@app/home'
-import LoginPage from '@app/login'
-import ProfilePage from '@app/profile'
-import TableTemplatePage from '@app/template/table'
 import { generateRandomId } from '@commons/id'
 import DashboardLayout from '@layouts/dashboard'
 import { type RouteObject, matchPath } from 'react-router-dom'
@@ -25,7 +20,12 @@ export const routers: DataRouteObject[] = [
       {
         id: 'login',
         path: 'login',
-        Component: LoginPage,
+        lazy: async () => {
+          const { default: Component } = await import('@app/login')
+          return {
+            Component,
+          }
+        },
         meta: {
           title: 'Login',
         },
@@ -38,7 +38,12 @@ export const routers: DataRouteObject[] = [
           {
             id: 'home',
             path: 'home',
-            Component: HomePage,
+            lazy: async () => {
+              const { default: Component } = await import('@app/home')
+              return {
+                Component,
+              }
+            },
             meta: {
               title: 'Home',
               titleKey: 'home',
@@ -47,7 +52,12 @@ export const routers: DataRouteObject[] = [
           {
             id: 'dashboard',
             path: 'dashboard',
-            Component: DashboardPage,
+            lazy: async () => {
+              const { default: Component } = await import('@app/dashboard')
+              return {
+                Component,
+              }
+            },
             meta: {
               title: 'Dashboard',
               titleKey: 'home',
@@ -72,7 +82,12 @@ export const routers: DataRouteObject[] = [
                   {
                     id: 'root-table',
                     path: '',
-                    Component: TableTemplatePage,
+                    lazy: async () => {
+                      const { default: Component } = await import('@app/template/table')
+                      return {
+                        Component,
+                      }
+                    },
                     meta: {
                       title: 'Table template',
                       titleKey: 'table.template.title',
@@ -81,7 +96,12 @@ export const routers: DataRouteObject[] = [
                   {
                     id: 'detail',
                     path: ':id',
-                    Component: LoginPage,
+                    lazy: async () => {
+                      const { default: Component } = await import('@app/template/table')
+                      return {
+                        Component,
+                      }
+                    },
                     meta: {
                       title: 'Detail template',
                       titleKey: 'table.template.title',
@@ -94,7 +114,12 @@ export const routers: DataRouteObject[] = [
           {
             id: generateRandomId(),
             path: 'profile',
-            Component: ProfilePage,
+            lazy: async () => {
+              const { default: Component } = await import('@app/profile')
+              return {
+                Component,
+              }
+            },
             meta: {
               title: 'Profile',
             },

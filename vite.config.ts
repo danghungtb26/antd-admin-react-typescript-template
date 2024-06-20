@@ -33,6 +33,28 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          // creating a chunk to react routes deps. Reducing the vendor chunk size
+          if (
+            id.includes('react-router-dom') ||
+            id.includes('@remix-run') ||
+            id.includes('react-router')
+          ) {
+            return '@react-router'
+          }
+          if (id.includes('antd')) {
+            return 'antd'
+          }
+          if (id.includes('echarts')) {
+            return 'echarts'
+          }
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       ...support_paths.reduce((a, b) => {
