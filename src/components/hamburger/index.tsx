@@ -21,9 +21,10 @@ const Wrap = styled.div`
 type HamburgerProps = {}
 
 const Hamburger: React.FC<React.PropsWithChildren<HamburgerProps>> = () => {
-  const { sidebarCollapsed, toggleSidebarCollapsed, drawerOpend, toggleDrawerOpened } = useSetting()
+  const { sidebarCollapsed, toggleSidebarCollapsed, drawerOpened, toggleDrawerOpened } =
+    useSetting()
   const mobile = useMobile()
-  const cond = !mobile ? sidebarCollapsed : !drawerOpend
+  const cond = !mobile ? sidebarCollapsed : !drawerOpened
   const Component = cond ? MenuUnfoldOutlined : MenuFoldOutlined
   return (
     <Wrap>

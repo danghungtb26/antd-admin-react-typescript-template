@@ -1,6 +1,6 @@
 import { useSetting } from '@contexts/setting/context'
 import { Layout } from 'antd'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 import Menu from './menu'
 import { ANIMATION_SPEED, SIDER_BAR_COLLAPSED_WIDTH, SIDER_BAR_WIDTH } from '../constants'
@@ -52,14 +52,14 @@ const DrawerBackground = styled.div`
 `
 
 const LayoutSider: React.FC<React.PropsWithChildren<LayoutSiderProps>> = () => {
-  const { sidebarCollapsed, drawerOpend, toggleDrawerOpened } = useSetting()
+  const { sidebarCollapsed, drawerOpened, toggleDrawerOpened } = useSetting()
   const mobile = useMobile()
 
   return (
     <>
-      {drawerOpend && mobile ? <DrawerBackground onClick={toggleDrawerOpened} /> : null}
+      {drawerOpened && mobile ? <DrawerBackground onClick={toggleDrawerOpened} /> : null}
       <SiderStyled
-        $open={drawerOpend}
+        $open={drawerOpened}
         width={SIDER_BAR_WIDTH}
         collapsedWidth={SIDER_BAR_COLLAPSED_WIDTH}
         collapsed={!mobile && sidebarCollapsed}

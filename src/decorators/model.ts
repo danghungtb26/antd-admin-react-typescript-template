@@ -4,42 +4,10 @@ import 'reflect-metadata'
 import isUndefined from 'lodash/isUndefined'
 import { isNull } from 'lodash'
 import { fieldsKey } from './constants'
-
-const getFieldType = (fieldType: any) => {
-  if (typeof fieldType === 'function') {
-    try {
-      return fieldType()
-    } catch (error) {
-      return fieldType
-    }
-  }
-
-  return fieldType
-}
+import { getFieldType } from './utils'
 
 export const model = () => {
   return <T extends { new (...args: any[]): {} }>(constructor: T) => {
-    // const original = constructor
-
-    // const decoratedConstructor: any = function (...args: any[]): void {
-    //   console.log('Before construction:', original)
-    //   const newArgs = [...args].reverse()
-    //   const keys = getAllKeys(original)
-    //   console.log('🚀 ~ file: model.ts:17 ~ return<Textends{new ~ keys:', keys)
-    //   const instance = new original(...newArgs)
-    //   console.log('After construction')
-    //   instance.base_name = constructor.name
-    //   return instance
-    // }
-
-    // decoratedConstructor.prototype = original.prototype
-    // // Copy static members too
-    // Object.keys(original).forEach((name: string) => {
-    //   decoratedConstructor[name] = (<any>original)[name]
-    // })
-
-    // // Return new constructor (will override original)
-    // return decoratedConstructor
     // @ts-ignore
     return class extends constructor {
       base_name = constructor.name
@@ -62,7 +30,7 @@ export const model = () => {
                   }
                   // @ts-ignore
                   throw new Error(
-                    `Không thể convert dữ liệu JSON sang dạng mảng được. PropertyKey: ${propertyKey}, Contructor: ${this.base_name}`,
+                    `Không thể convert dữ liệu JSON sang dạng mảng được. PropertyKey: ${propertyKey}, Constructor: ${this.base_name}`,
                   )
                   // this[propertyKey] = new FieldType[0](value)
                 }

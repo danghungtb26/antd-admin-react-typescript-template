@@ -19,7 +19,7 @@ export class Pagination {
   limit: number = 10
 
   // @ts-ignore
-  // eslint-disable-next-line no-useless-constructor, no-empty-function
+  // eslint-disable-next-line no-useless-constructor, no-empty-function, @typescript-eslint/no-unused-vars
   constructor(json?: any) {}
 
   afterMounted() {}

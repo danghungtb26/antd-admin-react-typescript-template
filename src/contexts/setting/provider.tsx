@@ -12,10 +12,10 @@ const SettingProvider: React.FC<React.PropsWithChildren<SettingProviderProps>> =
     setCollapsed(s => !s)
   }
 
-  const [drawerOpend, setDrawerOpend] = useState<SettingContextType['drawerOpend']>(false)
+  const [drawerOpened, setDrawerOpened] = useState<SettingContextType['drawerOpened']>(false)
 
   const toggleDrawerOpened = () => {
-    setDrawerOpend(s => !s)
+    setDrawerOpened(s => !s)
   }
 
   useEffect(() => {
@@ -28,10 +28,10 @@ const SettingProvider: React.FC<React.PropsWithChildren<SettingProviderProps>> =
       toggleSidebarCollapsed,
       fixedHeader: true,
       showTagView: true,
-      drawerOpend,
+      drawerOpened,
       toggleDrawerOpened,
     }),
-    [sidebarCollapsed, drawerOpend],
+    [drawerOpened, sidebarCollapsed],
   )
 
   return <SettingContext.Provider value={value}>{children}</SettingContext.Provider>

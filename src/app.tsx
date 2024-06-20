@@ -37,7 +37,7 @@ const App: React.FC<React.PropsWithChildren<AppProps>> = () => {
 
       setLoading(false)
     }, 2000)
-  }, [])
+  }, [navigate])
 
   if (loading) return <div>This is splash screen</div>
 

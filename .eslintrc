@@ -11,18 +11,13 @@
   ],
 "parser": "@typescript-eslint/parser",
   "rules": {
-    // "import/extensions": [
-    //   "error",
-    //   "ignorePackages",
-    //   {
-    //     "less": "ignorePackages",
-    //     "js": "ignorePackages",
-    //     "jsx": "always",
-    //     "ts": "ignorePackages",
-    //     "tsx": "ignorePackages",
-    //     "css": "always"
-    //   }
-    // ],
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        "json": "always"
+      }
+    ],
     "global-require": 0,
     "max-classes-per-file": 2,
     "react/no-array-index-key": 0,

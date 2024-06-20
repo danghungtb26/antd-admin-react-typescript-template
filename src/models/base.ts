@@ -5,7 +5,7 @@ import { getAllKeys } from '@decorators/model'
 import { isNull, isUndefined } from 'lodash'
 
 // @model()
-export class Base {
+export abstract class Base {
   @field('created_at')
   createdAt?: string
 
@@ -22,7 +22,7 @@ export class Base {
   order?: number
 
   // @ts-ignore
-  // eslint-disable-next-line no-useless-constructor, no-empty-function
+  // eslint-disable-next-line no-useless-constructor, no-empty-function, @typescript-eslint/no-unused-vars
   constructor(json?: any) {}
 
   afterMounted() {}
@@ -69,7 +69,7 @@ export class Base {
     return dateTime(this.createdAt).format(HH_MM_SS_DD_MM_YYYY)
   }
 
-  static fromJson(json?: any) {
-    return new this(json)
+  public static fromJson: (json: any) => void = () => {
+    throw new Error('Method not implemented! Use derived class')
   }
 }
